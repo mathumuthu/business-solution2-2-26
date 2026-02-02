@@ -14,15 +14,15 @@ body{background:#4f7cff;color:#fff;overflow-x:hidden}
 
 /* ---------- NAVBAR ---------- */
 header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 8%;
-position:fixed;
-width:100%;
-top:0;
-z-index:1000;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 8%;
+  position:relative;   /* ✅ normal flow */
+  width:100%;
+  background:transparent;
 }
+
 
 .logo{
 font-size:24px;
@@ -201,9 +201,27 @@ d="M0,224L80,202.7C160,181,320,139,480,149.3C640,160,800,224,960,224C1120,224,12
 </section>
 
 <script>
+const menu = document.getElementById('navMenu');
+const toggle = document.querySelector('.menu-toggle');
+
+// Toggle open/close
 function toggleMenu(){
-document.getElementById('navMenu').classList.toggle('show');
+  menu.classList.toggle('show');
 }
+
+// Close menu when clicking any link (mobile fix)
+document.querySelectorAll('#navMenu a').forEach(link => {
+  link.addEventListener('click', () => {
+    menu.classList.remove('show');
+  });
+});
+
+// Close menu if clicked outside (professional behavior)
+document.addEventListener('click', function(e){
+  if(!menu.contains(e.target) && !toggle.contains(e.target)){
+    menu.classList.remove('show');
+  }
+});
 </script>
 
 
