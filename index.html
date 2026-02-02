@@ -14,13 +14,16 @@ body{background:#4f7cff;color:#fff;overflow-x:hidden}
 
 /* ---------- NAVBAR ---------- */
 header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 8%;
-  position:relative;   /* ✅ normal flow */
-  width:100%;
-  background:transparent;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 8%;
+background:#4f7cff;   /* same as body so not looking sticky */
+z-index:1000;
 }
 
 
@@ -30,6 +33,43 @@ font-weight:700;
 display:flex;
 align-items:center;
 gap:10px;
+}
+
+
+
+@media(max-width:900px){
+
+.menu-toggle{
+display:block;
+z-index:1001;
+}
+
+nav{
+position:fixed;
+top:0;
+right:-100%;
+width:270px;
+height:100vh;
+background:#3b63d1;
+flex-direction:column;
+padding-top:100px;
+gap:25px;
+transition:0.4s ease;
+z-index:1000;
+}
+
+nav.show{
+right:0;
+}
+
+.hero{
+flex-direction:column;
+text-align:center;
+}
+
+.hero-right{
+margin-top:40px;
+}
 }
 
 nav{
@@ -42,7 +82,7 @@ nav a{
 color:#fff;
 text-decoration:none;
 font-weight:500;
-}
+} 
 
 .login-btn{
 background:#0ea5ff;
@@ -50,18 +90,19 @@ padding:10px 20px;
 border-radius:6px;
 }
 
-.menu-toggle{
+ .menu-toggle{
 display:none;
 font-size:26px;
 cursor:pointer;
-}
+z-index:1001;
+} 
 
 /* ---------- HERO ---------- */
 .hero{
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:140px 8% 120px;
+padding:140px 8% 120px;  /* space for fixed header */
 min-height:100vh;
 position:relative;
 }
@@ -123,12 +164,13 @@ width:100%;
 height:120px;
 }
 
-/* ---------- MOBILE ---------- */
+/* ---------- MOBILE MENU FIX ---------- */
 @media(max-width:900px){
+
 .hero{
 flex-direction:column;
 text-align:center;
-padding-top:120px;
+padding-top:60px;
 }
 
 .hero-right{
@@ -136,24 +178,46 @@ margin-top:40px;
 }
 
 nav{
-position:absolute;
-top:70px;
-right:8%;
+position:fixed;
+top:0;
+right:-100%;
+height:100vh;
+width:260px;
 background:#3b63d1;
 flex-direction:column;
-padding:20px;
-border-radius:10px;
+padding-top:100px;
+transition:0.4s ease;
+}
+
+nav.show{
+right:0;
+}
+
+.menu-toggle{
+display:block;
+}
+}
+
+
+
+
+#overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.4);
 display:none;
+z-index:999;
 }
 
-nav.show{display:flex}
-
-.menu-toggle{display:block}
+#overlay.show{
+display:block;
 }
+
 </style>
 </head>
 
 <body>
+<div id="overlay"></div>
 
 <header>
   <div class="logo">
@@ -173,12 +237,11 @@ nav.show{display:flex}
   </nav>
 </header>
 
-
 <section class="hero">
 <div class="hero-left">
 <div class="tag">Creative Multi-Services IT Agency</div>
 <h1>All The Services You Expect From an <span style="color:#3fffdc">IT & Technology Agency</span></h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quod corrupti laboram.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 
 <div class="buttons">
 <button class="login-btn" onclick="window.location.href='404.html'">CONTACT US</button>
@@ -192,7 +255,7 @@ nav.show{display:flex}
 
 <div class="curve">
 <svg viewBox="0 0 1440 320">
-<path fill="#ffffff" fill-opacity="1"
+<path fill="#ffffff"
 d="M0,224L80,202.7C160,181,320,139,480,149.3C640,160,800,224,960,224C1120,224,1280,160,1360,128L1440,96V320H0Z">
 </path>
 </svg>
@@ -202,27 +265,30 @@ d="M0,224L80,202.7C160,181,320,139,480,149.3C640,160,800,224,960,224C1120,224,12
 
 <script>
 const menu = document.getElementById('navMenu');
-const toggle = document.querySelector('.menu-toggle');
+const overlay = document.getElementById('overlay');
 
-// Toggle open/close
 function toggleMenu(){
   menu.classList.toggle('show');
+  overlay.classList.toggle('show');
 }
 
-// Close menu when clicking any link (mobile fix)
+overlay.addEventListener('click', ()=>{
+  menu.classList.remove('show');
+  overlay.classList.remove('show');
+});
+
 document.querySelectorAll('#navMenu a').forEach(link => {
   link.addEventListener('click', () => {
     menu.classList.remove('show');
+    overlay.classList.remove('show');
   });
 });
-
-// Close menu if clicked outside (professional behavior)
-document.addEventListener('click', function(e){
-  if(!menu.contains(e.target) && !toggle.contains(e.target)){
-    menu.classList.remove('show');
-  }
-});
 </script>
+
+
+</body>
+</html>
+
 
 
 
