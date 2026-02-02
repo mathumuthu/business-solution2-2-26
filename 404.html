@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 - Page Not Found</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{
+  height:100vh;
+  background:linear-gradient(120deg,#eaf6ff,#ffffff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+/* Floating shapes */
+.bg span{
+  position:absolute;
+  width:160px;height:160px;
+  background:rgba(13,110,253,0.08);
+  border-radius:50%;
+  animation:float 10s infinite ease-in-out;
+}
+.bg span:nth-child(1){top:10%;left:8%;}
+.bg span:nth-child(2){bottom:15%;right:10%;animation-delay:3s;}
+.bg span:nth-child(3){top:20%;right:25%;animation-delay:6s;}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-40px);}
+}
+
+.error-container{
+  text-align:center;
+  z-index:2;
+}
+
+.error-container h1{
+  font-size:140px;
+  color:#0d6efd;
+  letter-spacing:8px;
+  animation:fadeDown 1s ease;
+}
+
+.error-container h2{
+  font-size:32px;
+  color:#0b3c5d;
+  margin-bottom:15px;
+}
+
+.error-container p{
+  color:#666;
+  margin-bottom:30px;
+}
+
+.home-btn{
+  padding:14px 35px;
+  background:#0d6efd;
+  color:#fff;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:600;
+  transition:.4s;
+}
+.home-btn:hover{
+  background:#00bcd4;
+  transform:translateY(-5px);
+}
+
+@keyframes fadeDown{
+  from{opacity:0;transform:translateY(-40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* Responsive */
+@media(max-width:600px){
+  .error-container h1{font-size:90px;}
+  .error-container h2{font-size:22px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+  <span></span><span></span><span></span>
+</div>
+
+<div class="error-container">
+  <h1>404</h1>
+  <h2>Oops! Page Not Found</h2>
+  <p>The page you are looking for might have been removed or is temporarily unavailable.</p>
+  <a href="index.html" class="home-btn"><i class="fas fa-home"></i> Back To Home</a>
+</div>
+
+</body>
+</html>
